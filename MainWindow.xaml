@@ -1,0 +1,34 @@
+﻿<Window x:Class="AlwaysOnTop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AlwaysOnTop"
+        mc:Ignorable="d"
+        Title="AlwaysOnTop Manager" Height="250" Width="450">
+    <DockPanel Margin="10">
+        <StackPanel DockPanel.Dock="Right" Margin="10,0">
+            <StackPanel.Resources>
+                <Style TargetType="Button">
+                    <Setter Property="Margin" Value="0,0,0,5" />
+                </Style>
+            </StackPanel.Resources>
+            <TextBlock FontWeight="Bold" Margin="0,0,0,10" Text="Item Config"/>
+            <Button x:Name="ButtonRemove" Click="ButtonRemoveClick" Content="Remove"/>
+        </StackPanel>
+        <ListBox Name="ListBoxWindows" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Title}" />
+                        <ProgressBar Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding Completion}" />
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </DockPanel>
+</Window>
