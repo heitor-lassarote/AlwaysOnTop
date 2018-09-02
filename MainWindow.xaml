@@ -5,30 +5,4 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AlwaysOnTop"
         mc:Ignorable="d"
-        Title="AlwaysOnTop Manager" Height="250" Width="450">
-    <DockPanel Margin="10">
-        <StackPanel DockPanel.Dock="Right" Margin="10,0">
-            <StackPanel.Resources>
-                <Style TargetType="Button">
-                    <Setter Property="Margin" Value="0,0,0,5" />
-                </Style>
-            </StackPanel.Resources>
-            <TextBlock FontWeight="Bold" Margin="0,0,0,10" Text="Item Config"/>
-            <Button x:Name="ButtonRemove" Click="ButtonRemoveClick" Content="Remove"/>
-        </StackPanel>
-        <ListBox Name="ListBoxWindows" HorizontalContentAlignment="Stretch" SelectionMode="Extended">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Grid Margin="0,2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="100" />
-                        </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Title}" />
-                        <ProgressBar Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding Completion}" />
-                    </Grid>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-    </DockPanel>
-</Window>
+        Title="AlwaysOnTop Manager" Height="0" Width="0" ShowInTaskbar="True" Visibility="Hidden"/>

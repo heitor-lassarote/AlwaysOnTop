@@ -1,21 +1,9 @@
 ﻿namespace AlwaysOnTop
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Diagnostics;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using System.Windows;
-    using System.Windows.Controls;
-    using System.Windows.Data;
-    using System.Windows.Documents;
-    using System.Windows.Input;
-    using System.Windows.Media;
-    using System.Windows.Media.Imaging;
-    using System.Windows.Navigation;
-    using System.Windows.Shapes;
     using GlobalLowLevelHooks;
 
     /// <summary>
@@ -38,24 +26,28 @@
             this.InitializeComponent();
             this.hook.KeyDown += this.HookKeyDown;
             this.hook.Install();
+            
+            System.Windows.Forms.ContextMenu cm = new System.Windows.Forms.ContextMenu();
+
+            System.Windows.Forms.NotifyIcon ni = new System.Windows.Forms.NotifyIcon
+            {
+                Icon = Properties.Resources.AOT,
+                Visible = true,
+                Text = Properties.Resources.SystemTrayRunning,
+                ContextMenu = cm
+            };
+
+            cm.MenuItems.Add(Properties.Resources.SystemTrayExit, (s, e) =>
+            {
+                Application.Current.Shutdown();
+                ni.Visible = false;
+            });
         }
 
         ~MainWindow()
         {
             this.hook.KeyDown -= this.HookKeyDown;
             this.hook.Uninstall();
-        }
-
-        private void ButtonRemoveClick(object sender, RoutedEventArgs e)
-        {
-            Process[] selectedItems = new Process[this.ListBoxWindows.SelectedItems.Count];
-            this.ListBoxWindows.SelectedItems.CopyTo(selectedItems, 0);
-            foreach (Process window in selectedItems)
-            {
-                this.SetWindowAlwaysOnTop(window.MainWindowHandle, HWndNoTopMost);
-                this.ListBoxWindows.Items.Remove(window);
-                this.managedWindows.Remove(window.MainWindowHandle);
-            }
         }
 
         private Process GetCurrentWindow()
@@ -86,7 +78,6 @@
                     else
                     {
                         position = HWndNoTopMost;
-                        this.ListBoxWindows.Items.Remove(process);
                     }
 
                     this.managedWindows[hwnd] = position;
