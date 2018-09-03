@@ -39,15 +39,11 @@
 
             cm.MenuItems.Add(Properties.Resources.SystemTrayExit, (s, e) =>
             {
-                Application.Current.Shutdown();
+                this.hook.KeyDown -= this.HookKeyDown;
+                this.hook.Uninstall();
                 ni.Visible = false;
+                Application.Current.Shutdown();
             });
-        }
-
-        ~MainWindow()
-        {
-            this.hook.KeyDown -= this.HookKeyDown;
-            this.hook.Uninstall();
         }
 
         private Process GetCurrentWindow()
@@ -71,15 +67,9 @@
                 IntPtr hwnd = process.MainWindowHandle;
                 if (this.managedWindows.TryGetValue(hwnd, out IntPtr position))
                 {
-                    if (position == HWndNoTopMost)
-                    {
-                        position = HWndTopMost;
-                    }
-                    else
-                    {
-                        position = HWndNoTopMost;
-                    }
-
+                    position = position == HWndNoTopMost
+                        ? HWndTopMost
+                        : HWndNoTopMost;
                     this.managedWindows[hwnd] = position;
                 }
                 else

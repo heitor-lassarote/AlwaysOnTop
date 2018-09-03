@@ -102,15 +102,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="AOT.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="AOT.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Properties\AOT.bmp" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Properties\AOT.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
